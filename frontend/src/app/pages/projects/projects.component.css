@@ -1,0 +1,10 @@
+
+p.description{
+  overflow: hidden;
+  height: 70px;
+}
+
+h5.project-name {
+  overflow: hidden;
+  height: 24px;
+}

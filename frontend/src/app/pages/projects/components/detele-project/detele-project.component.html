@@ -1,0 +1,30 @@
+<div class="modal" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa dự án</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModal()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Bạn có muốn xóa hay không</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">
+            Hủy
+          </button>
+          <button type="button" class="btn btn-danger" (click)="onSubmit()">
+            Xóa
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-light p-1"
+  style="border-top-left-radius: 0; border-bottom-left-radius: 0" (click)="openModal()">
+  Xóa
+</button>

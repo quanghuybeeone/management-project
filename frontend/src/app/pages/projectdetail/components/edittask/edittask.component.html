@@ -1,0 +1,42 @@
+<div class="modal" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa thông tin công việc</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModal()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Tên công việc:</label>
+            <input type="text" id="name" class="form-control" required [(ngModel)]="task.name" name="name" />
+          </div>
+
+          <div class="mb-3">
+            <label for="members" class="form-label">Thành viên:</label>
+            <app-select-member [projectId]="projectId" [members]="task.members" (membersChange)="handleMembersChange($event)"></app-select-member>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Mô tả:</label>
+            <textarea id="description" class="form-control" [(ngModel)]="task.description" name="description"
+              required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">
+            Hủy
+          </button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit()">
+            Lưu
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-light p-1"
+  style="border-top-right-radius: 0; border-bottom-right-radius: 0;" (click)="openModal()">
+  Sửa
+</button>

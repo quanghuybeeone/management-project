@@ -1,0 +1,23 @@
+<form>
+  <mat-form-field class="example-chip-list" style="width: 100%;">
+    <mat-label>Joined members</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Member selection">
+      <mat-chip-row *ngFor="let member of members" (removed)="remove(member)">
+        {{ member.name }}
+        <button matChipRemove [attr.aria-label]="'remove ' + member.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input placeholder="New Member..." #memberInput [formControl]="memberCtrl"
+      [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (click)="showAutocompleteList()"
+      />
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let member of filteredMembers | async" [value]="member" [ngClass]="{ 'hidden': isMemberSelected(member) }">
+        {{ member.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

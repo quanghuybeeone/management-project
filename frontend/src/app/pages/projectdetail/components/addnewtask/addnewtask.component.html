@@ -1,0 +1,41 @@
+<div class="modal" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm mới công việc</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Tên công việc:</label>
+            <input type="text" id="name" class="form-control" required [(ngModel)]="newTask.name" name="name"/>
+          </div>
+
+          <!-- <div class="mb-3">
+            <label for="leader" class="form-label">Leader:</label>
+            <input type="text" id="leader" class="form-control" required />
+          </div> -->
+
+          <div class="mb-3">
+            <label for="members" class="form-label">Thành viên:</label>
+            <app-select-member [projectId]="projectId"  [members]="newTask.members" (membersChange)="handleMembersChange($event)"></app-select-member>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Mô tả:</label>
+            <textarea id="description" class="form-control" [(ngModel)]="newTask.description" name="description" required></textarea>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Hủy</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit()">Thêm mới</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-primary btn-sm m-2" (click)="openModal()">Thêm task</button>

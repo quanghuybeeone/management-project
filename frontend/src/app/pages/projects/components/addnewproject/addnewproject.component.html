@@ -1,0 +1,46 @@
+<div class="modal" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm mới dự án</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Tên dự án:</label>
+            <input type="text" id="name" class="form-control" required [(ngModel)]="newProject.name" name="name"/>
+          </div>
+
+          <div class="mb-3">
+            <label for="img" class="form-label">Hình ảnh:</label>
+            <input type="file" id="img" class="form-control" (change)="onFileSelected($event)" />
+          </div>
+
+          <div class="mb-3">
+            <label for="members" class="form-label">Thành viên:</label>
+            <app-select-member [members]="newProject.members" (membersChange)="handleMembersChange($event)"></app-select-member>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Mô tả:</label>
+            <textarea id="description" class="form-control" [(ngModel)]="newProject.description" name="description" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="dateStart" class="form-label">Ngày bắt đầu:</label>
+            <input type="date" id="dateStart" class="form-control" [(ngModel)]="newProject.dateStart" name="dateStart" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Hủy</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit()">Thêm mới</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-primary btn-sm m-2" (click)="openModal()">Thêm mới dự án</button>

@@ -1,0 +1,152 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+.page-wrapper {
+  position: relative
+}
+
+.body-wrapper {
+  position: relative
+}
+
+.body-wrapper>.container-fluid,
+.body-wrapper>.container-lg,
+.body-wrapper>.container-md,
+.body-wrapper>.container-sm,
+.body-wrapper>.container-xl,
+.body-wrapper>.container-xxl {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  transition: 0.2s ease-in
+}
+
+@media (max-width:767.98px) {
+
+  .body-wrapper>.container-fluid,
+  .body-wrapper>.container-lg,
+  .body-wrapper>.container-md,
+  .body-wrapper>.container-sm,
+  .body-wrapper>.container-xl,
+  .body-wrapper>.container-xxl {
+    padding: 30px 20px
+  }
+}
+
+.left-sidebar {
+  display: none;
+  position: fixed;
+
+  top: 0;
+  width: 0px;
+  background-color: #f6f6f6;
+  transition: 0.2s ease-in;
+  height: 100%;
+  z-index: 11;
+  border-right: 1px solid rgb(229, 234, 239);
+}
+
+.brand-logo {
+  min-height: 70px;
+  padding: 0 24px;
+  border-bottom: 1px solid rgb(229, 234, 239);
+}
+
+.app-header {
+  position: fixed;
+  min-height: 70px;
+  z-index: 50;
+  width: 100%;
+  background: #f6f6f6;
+  padding: 0 25px;
+  border-bottom: 1px solid rgb(229, 234, 239);
+}
+
+.body-wrapper>.container-fluid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  padding-top: calc(70px + 15px);
+  transition: 0.2s ease-in;
+
+
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+i {
+  font-size: 24px;
+}
+
+.nav-small-cap {
+  margin-top: 10px;
+  color: #2A3547;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 12px;
+  line-height: 26px;
+  text-transform: uppercase;
+}
+
+.sidebar-nav ul .sidebar-item .sidebar-link {
+  color: #2A3547;
+  display: flex;
+  font-size: 14px;
+  white-space: nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  line-height: 25px;
+  position: relative;
+  margin: 0px 0px 2px;
+  padding: 10px;
+  border-radius: 7px;
+  gap: 15px;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+}
+.bi-three-dots-vertical{
+  cursor: pointer !important;
+  font-size: 18px;
+}
+.dropdown-menu{
+  cursor: pointer !important;
+}
+
+@media (min-width: 1200px) {
+
+  .open-body-wrapper {
+    margin-left: 270px;
+  }
+  .open-app-header {
+    width: calc(100% - 270px);
+  }
+}
+
+.open-side-bar{
+  display: block;
+  width: 270px;
+}
+

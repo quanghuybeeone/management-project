@@ -1,0 +1,81 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h2>Quản lý user</h2>
+
+  </div>
+</div>
+
+<div class="card p-3">
+  <form class="search-bar">
+    <input
+      name="searchTerm"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+      type="text"
+      class="form-control"
+      placeholder="Enter keywords"
+    />
+    <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+  </form>
+</div>
+
+<div class="card 100-vh">
+  <div class="card-body">
+    <h3>Danh sách user</h3>
+    <table class="table table-striped mb-3">
+      <thead>
+        <tr>
+          <th>Họ và tên</th>
+          <th>Chức vụ</th>
+          <th>Điều khiển</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userListRender">
+          <td>{{user.name}}</td>
+          <ng-container *ngIf="user.role === 'employee'; else leaderBlock">
+            <td>Nhân viên</td>
+          </ng-container>
+          <ng-template #leaderBlock>
+            <td>Nhóm trưởng</td>
+          </ng-template>
+          <td><button class="btn btn-light" (click)="changeRole(user._id,user.role)">Thay đổi chức vụ</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <ul class="pagination d-flex justify-content-center">
+      <li class="page-item">
+        <button
+          class="page-link"
+          aria-label="Previous"
+          (click)="onPreviousPage()"
+          [disabled]="currentPage === 1"
+        >
+          <span aria-hidden="true">«</span>
+        </button>
+      </li>
+      <li
+        class="page-item"
+        *ngFor="let page of getPageNumbers()"
+        [class.active]="page === currentPage"
+        (click)="onPageChange(page)"
+      >
+        <button class="page-link">{{ page }}</button>
+      </li>
+      <li class="page-item">
+        <button
+          class="page-link"
+          aria-label="Next"
+          (click)="onNextPage()"
+          [disabled]="currentPage === getPageNumbers().length"
+        >
+          <span aria-hidden="true">»</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+

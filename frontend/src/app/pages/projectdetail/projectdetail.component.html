@@ -1,0 +1,192 @@
+<div class="card mt-3">
+  <div class="card-content">
+    <div class="row row-group m-0">
+      <div class="col-12 col-lg-6 col-xl-6 border-light">
+        <div class="card-body">
+          <h2 class="mb-1">{{ project.name }}</h2>
+          <h4>Thông tin dự án</h4>
+          <div>
+            <b>Ngày bắt đầu: </b> {{ project.dateStart | date : "dd/MM/yyyy" }}
+          </div>
+          <div *ngIf="project.leader">
+            <b>Nhóm trưởng: </b> {{ project.leader.name }}
+          </div>
+          <div><b>Thành viên tham gia:</b></div>
+          <ol>
+            <li *ngFor="let member of project.members">{{ member.name }}</li>
+          </ol>
+          <div><b>Mô tả: </b> {{ project.description }}</div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-3 border-light">
+        <div class="card-body">
+          <h5 class="text-white mb-0">
+            {{backlog.length+inProgress.length+reviewCode.length+testing.length+done.length}}<span class="float-right"><i class="fa fa-eye"></i></span>
+          </h5>
+          <div class="progress my-3" style="height: 3px">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+          <p class="mb-0 text-white small-font">
+            Tổng số công việc
+          </p>
+        </div>
+        <div class="card-body">
+          <h5 class="text-white mb-0">
+            {{backlog.length+inProgress.length+reviewCode.length+testing.length}} <span class="float-right"><i class="fa fa-eye"></i></span>
+          </h5>
+          <div class="progress my-3" style="height: 3px">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+          <p class="mb-0 text-white small-font">
+            Công việc chưa hoàn thành
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-3 border-light">
+        <div class="card-body">
+          <h5 class="text-white mb-0">
+            {{done.length}} <span class="float-right"><i class="fa fa-envira"></i></span>
+          </h5>
+          <div class="progress my-3" style="height: 3px">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+          <p class="mb-0 text-white small-font">
+            Công việc đã hoàn thành
+          </p>
+        </div>
+        <div class="card-body">
+          <h5 class="text-white mb-0">
+            {{ project.members ? project.members.length : 0 }} <span class="float-right"><i class="fa fa-envira"></i></span>
+          </h5>
+          <div class="progress my-3" style="height: 3px">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+          <p class="mb-0 text-white small-font">
+            Số thành viên
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card 100-vh">
+  <div class="card-body">
+    <div class="d-flex justify-content-start align-items-center">
+      <h3 class="mb-0">Chi tiết dự án</h3>
+      <ng-container *ngIf="isUserMember(user)">
+        <span><app-addnewtask [projectId]="id" (onTaskAdded)="ngOnInit()"></app-addnewtask></span>
+      </ng-container>
+    </div>
+
+    <div cdkDropListGroup class="p-3">
+      <div class="example-container row justify-content-between">
+        <div class="example-item">
+          <h5>Tồn đọng</h5>
+          <div cdkDropList class="example-list" status="backlog" [cdkDropListData]="backlog"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box card" *ngFor="let item of backlog" cdkDrag>
+              <div class="mb-2">
+                <h6>{{ item.name }}</h6>
+                <div>Mô tả: {{ item.description }}</div>
+                <div>Thành viên:</div>
+                <ul class="px-1">
+                  <li *ngFor="let i of item.members">+ {{ i.name }}</li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <app-edittask [projectId]="id" [taskId]="item._id" (onTaskEdit)="ngOnInit()"></app-edittask>
+                <app-detele-task [taskId]="item._id" (onTaskDelete)="ngOnInit()"></app-detele-task>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-item">
+          <h5>Đang tiến hành</h5>
+          <div cdkDropList class="example-list" status="in progress" [cdkDropListData]="inProgress"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box card" *ngFor="let item of inProgress" cdkDrag>
+              <div class="mb-2">
+                <h6>{{ item.name }}</h6>
+                <div>Mô tả: {{ item.description }}</div>
+                <div>Thành viên:</div>
+                <ul class="px-1">
+                  <li *ngFor="let i of item.members">+ {{ i.name }}</li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <app-edittask [taskId]="item._id" (onTaskEdit)="ngOnInit()"></app-edittask>
+                <app-detele-task [taskId]="item._id" (onTaskDelete)="ngOnInit()"></app-detele-task>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-item">
+          <h5>Xem lại</h5>
+          <div cdkDropList class="example-list" status="review code" [cdkDropListData]="reviewCode"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box card" *ngFor="let item of reviewCode" cdkDrag>
+              <div class="mb-2">
+                <h6>{{ item.name }}</h6>
+                <div>Mô tả: {{ item.description }}</div>
+                <div>Thành viên:</div>
+                <ul class="px-1">
+                  <li *ngFor="let i of item.members">+ {{ i.name }}</li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <app-edittask [taskId]="item._id" (onTaskEdit)="ngOnInit()"></app-edittask>
+                <app-detele-task [taskId]="item._id" (onTaskDelete)="ngOnInit()"></app-detele-task>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-item">
+          <h5>Kiểm thử</h5>
+          <div cdkDropList class="example-list" status="testing" [cdkDropListData]="testing"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box card" *ngFor="let item of testing" cdkDrag>
+              <div class="mb-2">
+                <h6>{{ item.name }}</h6>
+                <div>Mô tả: {{ item.description }}</div>
+                <div>Thành viên:</div>
+                <ul class="px-1">
+                  <li *ngFor="let i of item.members">+ {{ i.name }}</li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <app-edittask [taskId]="item._id" (onTaskEdit)="ngOnInit()"></app-edittask>
+                <app-detele-task [taskId]="item._id" (onTaskDelete)="ngOnInit()"></app-detele-task>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-item">
+          <h5>Hoàn thành</h5>
+          <div cdkDropList class="example-list" status="done" [cdkDropListData]="done"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box card" *ngFor="let item of done" cdkDrag>
+              <div class="mb-2">
+                <h6>{{ item.name }}</h6>
+                <div>Mô tả: {{ item.description }}</div>
+                <div>Thành viên:</div>
+                <ul class="px-1">
+                  <li *ngFor="let i of item.members">+ {{ i.name }}</li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <app-edittask [taskId]="item._id" (onTaskEdit)="ngOnInit()"></app-edittask>
+                <app-detele-task [taskId]="item._id" (onTaskDelete)="ngOnInit()"></app-detele-task>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container"></div>
